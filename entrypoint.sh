@@ -40,23 +40,23 @@ fi
 echo $CLASP > .clasp.json
 
 if [ "$8" = "push" ]; then
-  clasp push -f
+  clasp push -f || exit 1
 elif [ "$8" = "deploy" ]; then
   if [ -n "$9" ]; then
-    clasp push -f
+    clasp push -f || exit 1
 
     if [ -n "${10}" ]; then
-      clasp deploy --description "$9" -i "${10}"
+      clasp deploy --description "$9" -i "${10}" || exit 1
     else
-      clasp deploy --description "$9"
+      clasp deploy --description "$9" || exit 1
     fi
   else
-    clasp push -f
+    clasp push -f || exit 1
 
     if [ -n "${10}" ]; then
-      clasp deploy -i "${10}"
+      clasp deploy -i "${10}" || exit 1
     else
-      clasp deploy
+      clasp deploy || exit 1
     fi
   fi
 else
